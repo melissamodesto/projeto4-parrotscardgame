@@ -2,6 +2,51 @@ body {
     background-color: #EEF9BF;
 }
 
+.container {
+    position: relative;
+}
+
+.escolher-cartas {
+    width: 100%;
+    margin: 10px auto;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+}
+.escolher-cartas img {
+    width: 50px;
+    height: 50px;
+}
+
+.escolher-cartas div {
+    width: 500px;
+    text-align: center;
+    margin: -10% calc(50% - 500px/2);
+}
+
+.escolher-cartas h1 {
+    font-size: 32px;
+    font-family: 'Roboto', sans-serif;
+    color: #75B79E;
+}
+
+input {
+    height: 30px;
+    width: 50%;
+    margin-top: 30px;
+    background-color: #E6E6E6;
+    border: 1px #bfc6cb solid;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.escolher-cartas h3 {
+    margin-top: 30px;
+    font-size: 26px;
+    font-family: 'Roboto', sans-serif;
+    color: #75B79E;
+}
+
 .header {
     color: #75B79E;
     text-align: center;
@@ -15,11 +60,28 @@ body {
 .line {
     display: flex;
     margin: 34px auto;
+    width: 1200px;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
-.title p {
+.title p:nth-child(1){
+    display: initial;
     font-size: 56px;
+}
+
+.title p:nth-child(2) {
+    display: none;
+}
+
+.card {
+    width: 117px;
+    height: 148px;
+    background-color: #99cea8;
+    border-radius: 9px;
+    border: 1px solid #99CEA8;
+    margin: 20px;
+    position: relative;
 }
 
 .front-face {
@@ -28,15 +90,19 @@ body {
     margin: 25px 10px;
 }
 
-.card {
-    width: 117px;
-    height: 148px;
-    background-color: #99cea8;
-    margin: 34px;
-    border-radius: 9px;
+.back-face {
+    position: absolute;
+    top: 25px;
+    left: 20px;
+    width: 84px;
+    height: 84px;
 }
 
-@media (max-width: 980px){
+.escondido {
+    display: none;
+}
+
+@media (max-width: 580px){
 
     .header {
         color: #75B79E;
@@ -46,6 +112,16 @@ body {
         font-size: 36px;
         margin: 40px 12px;
         line-height: 42px;
+        flex-wrap: wrap;
+    }
+
+    .title p:nth-child(1){
+        display: none;
+    }
+
+    .title p:nth-child(2) {
+        font-size: 36px;
+        display: initial;
     }
     
     .front-face {
@@ -53,5 +129,9 @@ body {
         height: 100px;
         margin: 25px 10px;
     }  
+
+   /*  .line {
+        flex-direction: column;
+    } */
 
 }
