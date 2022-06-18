@@ -4,6 +4,9 @@ body {
 
 .container {
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
 }
 
 .escolher-cartas {
@@ -82,6 +85,12 @@ input {
     border: 1px solid #99CEA8;
     margin: 20px;
     position: relative;
+    cursor: pointer; 
+}
+
+.rotaded {
+    transform: rotateY(180deg);
+    transition-duration: 500ms;
 }
 
 .front-face {
@@ -96,10 +105,16 @@ input {
     left: 20px;
     width: 84px;
     height: 84px;
+    
 }
 
 .escondido {
     display: none;
+}
+
+.disabled {
+    pointer-events: none;
+    color: #bfc6cb;
 }
 
 @media (max-width: 580px){
