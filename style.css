@@ -115,6 +115,7 @@ input {
 .disabled {
     pointer-events: none;
     color: #bfc6cb;
+    opacity: 0.5;
 }
 
 @media (max-width: 580px){

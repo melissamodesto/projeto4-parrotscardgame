@@ -51,7 +51,7 @@ function showCards(number) {
     for (let i = 0; i < number; i++) {
         
         let cardsTemplate = ` 
-        <div class="card" onclick=" flipCard(this)" data-card="${newArray[i]}">  
+        <div class="card" onclick=" flipCard(this)" data-card = "${newArray[i]}">  
             <img class="front-face" src="./image/front.png" alt="front-face" />
             <img class="back-face escondido" src="./image/${newArray[i]}" alt="back-face" /> 
         </div>`;
@@ -74,18 +74,6 @@ function clickImage() {
 
 let cardOne, cardTwo;
 
-function checkCards() {
- 
-    let isMatch = cardOne.dataset.card === cardTwo.dataset.card;
-
-
-    if (isMatch) {
-        cardOne.classList.add('disabeld');
-        cardTwo.classList.add('disabeld');
-    }
-    console.log(isMatch);
-}
-
 function flipCard(element) {
 
     element.classList.add('rotaded');
@@ -97,8 +85,6 @@ function flipCard(element) {
 
     const backFace = element.querySelector('.back-face');
     backFace.classList.remove('escondido');
-
-    checkCards();
 }
 
 /* const cards = document.querySelectorAll('.card');
@@ -106,7 +92,6 @@ console.log(cards); */
 
 
 function receiveCards(element) {
-
 
     if(cardOne === undefined) {
         
@@ -121,8 +106,30 @@ function receiveCards(element) {
     }
 
     while (cardOne !== cardTwo) {
+        cardOne.classList.add('rotaded');
+        cardTwo.classList.add('rotaded');
 
+        const frontFace = element.querySelector('.front-face');
+        frontFace.classList.remove('escondido');
+
+        const backFace = element.querySelector('.back-face');
+        backFace.classList.add('escondido');
     }
+
+    checkCards();
 }
 
-receiveCards();
+function checkCards() {
+ 
+    let isMatch = cardOne.dataset.card === cardTwo.dataset.card;
+
+    if (isMatch) {
+        cardOne.classList.add('disabled');
+        cardTwo.classList.add('disabled');
+    } 
+
+    receiveCards();
+
+    console.log(isMatch);
+   
+}
