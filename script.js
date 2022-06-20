@@ -1,5 +1,3 @@
-/* window.prompt('Com quantas cartas você quer jogar?'); */
-
 const img1 = 'bobrossparrot.gif';
 const img2 = 'explodyparrot.gif';
 const img3 = 'fiestaparrot.gif';
@@ -10,36 +8,35 @@ const img7 = 'unicornparrot.gif';
 
 
 const cardsArray = [img1, img2, img3, img4, img5, img6, img7];
-
-/* const form = document.querySelector('.number-cards');
-
-form.addEventListener('submit', handleSubmit) */
+let amountCards = 0;
 
 function escolherQuantidade() {
-    
+
     let usuarioEscolhe = true;
-    
+
     while (usuarioEscolhe) {
-        
-        let amountCards = window.prompt('Com quantas cartas você quer jogar?');
+
+        amountCards = window.prompt('Com quantas cartas você quer jogar?');
         amountCards = Number(amountCards);
 
         if (amountCards % 2 === 0 && amountCards <= 14 && amountCards >= 4) {
-           
+
             usuarioEscolhe = false;
-            showCards(amountCards);
+            generateCards(amountCards);
 
         } else {
             alert('Você digitou um valor inválido, tente novamente!');
         }
-    } 
+    }
 }
 
-function showCards(number) {
+escolherQuantidade();
+
+function generateCards(number) {
 
     let newArray = [];
 
-    for (let i = 0; i < number/2; i++) {
+    for (let i = 0; i < number / 2; i++) {
         newArray.push(cardsArray[i]);
     }
 
@@ -49,9 +46,9 @@ function showCards(number) {
     const container = document.querySelector('.container');
 
     for (let i = 0; i < number; i++) {
-        
+
         let cardsTemplate = ` 
-        <div class="card" onclick=" flipCard(this)" data-card = "${newArray[i]}">  
+        <div class="card" onclick="flipCard(this)" data-carta = "${newArray[i]}">  
             <img class="front-face" src="./image/front.png" alt="front-face" />
             <img class="back-face escondido" src="./image/${newArray[i]}" alt="back-face" /> 
         </div>`;
@@ -63,73 +60,113 @@ function comparador() {
     return 0.5 - Math.random();
 }
 
-escolherQuantidade();
+function showCard() {
+    frontFace.classList.add('escondido');
+    backFace.classList.remove('escondido');
 
-function clickImage() {
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.addEventListener('click', flipCard);
-    });
 }
 
 let cardOne, cardTwo;
+let frontFace, backFace;
+let count = 0;
 
 function flipCard(element) {
 
-    element.classList.add('rotaded');
+    if (document.querySelectorAll('.rotaded').length < 2) {
+        element.classList.add('rotaded');
+        frontFace = element.querySelector('.front-face');
+        backFace = element.querySelector('.back-face');
 
-    receiveCards(element);
 
-    const frontFace = element.querySelector('.front-face');
-    frontFace.classList.add('escondido');
+        showCard();
 
-    const backFace = element.querySelector('.back-face');
-    backFace.classList.remove('escondido');
+        setTimeout(() => compareCards(element), 1000);
+
+    }
 }
 
-/* const cards = document.querySelectorAll('.card');
-console.log(cards); */
+function compareCards(element) {
 
+    if (cardOne === undefined) {
 
-function receiveCards(element) {
-
-    if(cardOne === undefined) {
-        
         cardOne = (element);
+
+        count++;
+        console.log('oi');
+
         return false;
 
     } else if (cardTwo === undefined) {
-    
+
         cardTwo = (element);
-        return false;
 
+        count++;
+        console.log('hello');
+
+        frontFace = element.querySelector('.front-face');
+        backFace = element.querySelector('.back-face');
+
+
+
+        if (cardOne.innerHTML !== cardTwo.innerHTML) {
+            notMatch();
+            return;
+
+        } else {
+            isMatch();
+        }
     }
-
-    while (cardOne !== cardTwo) {
-        cardOne.classList.add('rotaded');
-        cardTwo.classList.add('rotaded');
-
-        const frontFace = element.querySelector('.front-face');
-        frontFace.classList.remove('escondido');
-
-        const backFace = element.querySelector('.back-face');
-        backFace.classList.add('escondido');
-    }
-
-    checkCards();
 }
 
-function checkCards() {
- 
-    let isMatch = cardOne.dataset.card === cardTwo.dataset.card;
 
-    if (isMatch) {
+function notMatch() {
+
+    cardOne.classList.remove('rotaded');
+    cardTwo.classList.remove('rotaded');
+
+    frontFace.classList.remove('escondido');
+    backFace.classList.add('escondido');
+
+    cardOne.querySelector('.front-face').classList.remove('escondido');
+    cardOne.querySelector('.back-face').classList.add('escondido');
+
+    cardOne = undefined;
+    cardTwo = undefined;
+}
+
+function isMatch() {
+    if (cardOne.innerHTML === cardTwo.innerHTML) {
         cardOne.classList.add('disabled');
         cardTwo.classList.add('disabled');
-    } 
+        cardOne.classList.remove('rotaded');
+        cardTwo.classList.remove('rotaded');
+        cardOne = undefined;
+        cardTwo = undefined;
+        console.log(count);
+        congrats();
+    }
+}
 
-    receiveCards();
 
-    console.log(isMatch);
-   
+function congrats() {
+
+    let pair = document.querySelectorAll('.disabled');
+
+    if (pair.length === amountCards) {
+        let messager = document.querySelector('.container');
+
+        messager.innerHTML = `
+        <div class="congrats">
+        <div>
+            <p>Você ganhou em ${count} jogadas!</p>
+        </div>
+        </div>
+        <div class="play-again">
+        <p>Você quer jogar novamente?</p>
+        <div class="button">
+            <div onclick="window.location.reload()">SIM</div>
+            <div onclick="window.close()">NÃO</div>
+        </div>
+        </div>`;
+    }
 }

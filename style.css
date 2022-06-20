@@ -1,5 +1,10 @@
+* {
+    box-sizing: border-box;
+}    
+
 body {
     background-color: #EEF9BF;
+
 }
 
 .container {
@@ -7,6 +12,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center; 
+    width: calc(70% - 20px);
+    margin: auto;
 }
 
 .escolher-cartas {
@@ -88,15 +95,20 @@ input {
     cursor: pointer; 
 }
 
-.rotaded {
+.card:active {
+    transform: scale(0.97);
+}
+
+.card.rotaded {
     transform: rotateY(180deg);
-    transition-duration: 500ms;
+    transition-duration: 1000ms;
 }
 
 .front-face {
     width: 100px;
     height: 100px;
     margin: 25px 10px;
+    position: absolute;
 }
 
 .back-face {
@@ -104,8 +116,7 @@ input {
     top: 25px;
     left: 20px;
     width: 84px;
-    height: 84px;
-    
+    height: 84px;    
 }
 
 .escondido {
@@ -116,6 +127,70 @@ input {
     pointer-events: none;
     color: #bfc6cb;
     opacity: 0.5;
+}
+
+.congrats {
+    margin: auto;
+    width: 400px;
+    height: 200px;
+    background-color: rgba(177, 235, 141, 0.8);
+    z-index: 1;
+    position: absolute;
+    top: 100px;
+    text-align: center;
+    padding-top: 80px;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+    color: #75B79E;
+}
+
+.play-again {
+    margin-top: 300px;
+    width: 400px;
+    height: 200px;
+    z-index: 1;
+    top: 100px;
+    text-align: center;
+    padding-top: 80px;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+    color: #75B79E;
+}
+
+.button {
+    width: 200px;
+    height: 50px;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.button div:nth-child(1) {
+    width: 70px;
+    height: 50px;
+    background-color: #75B79E;
+    cursor: pointer;
+    border: 1px solid #75B79E;
+    padding-top: 15px; 
+    border-radius: 10px;
+}
+
+.button div:nth-child(2) {
+    width: 70px;
+    height: 50px;
+    background-color: #75B79E;
+    cursor: pointer;
+    border: 1px solid #75B79E;
+    padding-top: 15px;
+    border-radius: 10px; 
 }
 
 @media (max-width: 580px){
